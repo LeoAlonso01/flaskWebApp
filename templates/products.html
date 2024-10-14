@@ -1,0 +1,41 @@
+{% extends 'Layout.html' %}
+
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table-responsive">
+                <thead>
+                    <tr>
+                        <th class="d-none d-md-table-cell">Id</th>
+                        <th class="d-none d-md-table-cell">Nombre</th>
+                        <th class="d-none d-md-table-cell">Precio</th>
+                        <th class="d-none d-md-table-cell">Cantidad</th>
+                        <th class="d-none d-md-table-cell">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.0 }}</td>
+                        <td>{{ product.1 }}</td>
+                        <td>$ {{ product.2 }}</td>
+                        <td class=" justify-content-center align-items-center"  >{{ product.3 }}</td>
+                        <td>
+                            <a href="/edit/{{ product.0 }}" class="btn btn-primary">Editar</a>
+                            <a href="/delete/{{ product.0 }}" class="btn btn-danger">Eliminar</a>
+                            <a href="/details/{{product.0}}" class="btn btn-success">Detalles</a>
+                        </td>
+                    </tr>
+                    {% endfor %}	
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

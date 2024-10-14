@@ -1,0 +1,61 @@
+{% extends 'Layout.html' %}
+
+{% block content %}
+
+<body>
+    <div class="container">
+        <h1>Products</h1>
+    </div>
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class="container">
+        <p class="alert alert-success">
+            {{ message }}
+        </p>
+    </div>
+
+
+    {% endfor %}
+
+    {% endif %}
+
+    {% endwith %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form class="form-control" action="/update/{{product.0}}" method="POST"  enctype="multipart/form-data">
+                    <div class="input-goup mb-3">
+                        <input class="input-control" type="text" name="name" id="name"
+                            value="{{product[1]}}">
+                    </div>
+                    <div class="input-goup mb-3">
+                        <input class="input-control" type="number" name="price" id="price" value="{{product[2]}}">
+                    </div>
+                    
+                    <div class="input-goup mb-3">
+                        <input class="input-control" type="number" name="quiantity" id="quiantity"
+                            value="{{ product[3] }}">
+                    </div>
+                   <!--  <div class="input-goup mb-3">
+                        <input class="input-control" type="file" name="filename" id="filename" accept="image/*" required
+                            >
+                    </div> -->
+                    <button class="btn btn-success" type="submit">
+                        Edit product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    function Agregado() {
+        alert("Producto agregado");
+    }
+</script>
+
+{% endblock %}

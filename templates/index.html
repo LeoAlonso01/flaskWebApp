@@ -1,0 +1,92 @@
+{% extends 'Layout.html' %}
+
+{% block content %}
+
+<body>
+    <div class="container">
+        <h1>Products</h1>
+    </div>
+    {% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+    {% for message in messages %}
+    <div class="container">
+        <p class="alert alert-success">
+            {{ message }}
+        </p>
+    </div>
+
+
+    {% endfor %}
+
+    {% endif %}
+
+    {% endwith %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form class="form-control" action="/add_product" method="POST"  enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <input class="input-control" type="text" name="name" id="name" required
+                            placeholder="Nombre del producto">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input class="input-control" type="number" name="price" id="price" required placeholder="Precio">
+                    </div>
+                    
+                    <div class="input-group mb-3">
+                        <input class="input-control" type="number" name="quiantity" id="quiantity" required
+                            placeholder="Cantidad">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input class="input-control" type="file" name="image" id="image" placeholder="Imagen" required
+                            >
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="image_url" id="image-url" required >
+                    </div>
+                    <button class="btn btn-success" type="submit">
+                        Save product
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+    // atrapar el evento de cambio de imagen
+    document.getElementById("image").addEventListener("change", () => {
+        console.log("captura de imagen");
+        const file = document.getElementById("image").files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+            document.getElementById("image-url").value = reader.result;
+        };
+        console.log(file);
+        reader.readAsDataURL(file);
+        if (file){
+
+            
+            // fecth a la url de la api
+            fetch("/upload_file", {
+                method: "POST",
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                document.getElementById("image-url").value = data.url;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+            
+        } else {
+            alert("No se ha seleccionado una imagen");
+        }
+
+    })
+</script>
+
+{% endblock %}
