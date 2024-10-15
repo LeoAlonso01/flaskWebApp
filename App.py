@@ -31,10 +31,10 @@ def allowed_file(filename):
 app.secret_key = 'my_secret_key'
 
 # MySQL Connection
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flask_mysql'
+app.config['MYSQL_HOST'] = 'bc7592clo3zzpn1yahhq-mysql.services.clever-cloud.com' # 'localhost'
+app.config['MYSQL_USER'] =  'uhnkoggbedux6dqh' # 'root'
+app.config['MYSQL_PASSWORD'] = 'XplC0tzNalRAbzgcccm0'
+app.config['MYSQL_DB'] = 'bc7592clo3zzpn1yahhq' #'flask_mysql' 
 
 
 # Initialize MySQL
@@ -48,7 +48,8 @@ def index():
 # upload images to s3
 @app.route('/upload_file', methods=['POST'])
 def upload_file_to_s3():
-    return "upload file to s3"
+    print(request.files)
+    return jsonify({'message': 'File uploaded successfully'})
 
 # Products
 @app.route('/products', methods=['GET'])
